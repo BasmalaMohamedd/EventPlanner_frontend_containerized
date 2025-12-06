@@ -1,0 +1,52 @@
+
+body{
+  background-color:#FEFBFF;
+}
+
+.login-btn {
+  background-color: #4B2D47;
+  color: white;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #6a395f;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.signup-btn{
+  background-color: #386F5F;
+  color: white;
+  transition: 0.3s;
+}
+.signup-btn:hover{
+  background-color: #1bad84;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+
+}
+
+.no-arrow::after {
+  display: none !important;
+}
+
+.hover:hover{
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+
+}
+
+
+.hover-zoom {
+  /* Define a default state or transition for smoothness */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Apply the zoom effect on hover or another interactive state */
+.hover-zoom:hover {
+  transform: scale(1.05); /* Zooms the element to 120% of its original size */
+}
+
+
+.nav-tabs .nav-link {
+  color: gray;
+}
