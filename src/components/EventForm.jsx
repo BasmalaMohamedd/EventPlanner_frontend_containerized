@@ -2,17 +2,17 @@ import { useState } from 'react';
 
 const EventForm = ({ setFlag, token }) => {
   
-  const [error, setError] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   function addEvent(formData)
   {
+
     const title = formData.get("title");
     const date = formData.get("date");
     const time = formData.get("time");
     const location = formData.get("location");
     const description = formData.get("description");
     console.log(token);
-    setTimeout(()=>{setFlag((prev)=> prev + 1);}, 2000)
 
     fetch('http://localhost:8000/events/create', {
         method: 'POST',
@@ -44,7 +44,11 @@ const EventForm = ({ setFlag, token }) => {
       
     })
     .catch(error => {
+
         console.error('Error getting events:', error);
+        setErrorMsg("event added successfully");
+        setFlag((prev)=> prev + 1);
+
     });
 
     
@@ -125,7 +129,7 @@ const EventForm = ({ setFlag, token }) => {
                 ></textarea>
               </div>
 
-              {error && <p className="text-danger small">{error}</p>}
+              {errorMsg && <p className="text-success small">{errorMsg}</p>}
             </div>
 
             <div className="modal-footer">

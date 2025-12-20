@@ -11,7 +11,7 @@ const Home = ({
   onDeleteEvent,
   onInviteEvent,
   token,
-  OrganizedEventsFlag
+  organizedEventsFlag
 }) => {
   const [invitationsFlag, setInvitationsFlag] = useState(0);
 
@@ -45,7 +45,7 @@ const Home = ({
               onDeleteEvent={onDeleteEvent}
               onInviteEvent={onInviteEvent}
               token ={token}
-              flag={OrganizedEventsFlag}
+              flag={organizedEventsFlag}
             />
           </div>
 
