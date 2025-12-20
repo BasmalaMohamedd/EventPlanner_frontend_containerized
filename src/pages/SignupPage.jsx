@@ -40,7 +40,7 @@ const SignupPage = () => {
           return response.json();
       })
       .then(data => {
-          log(data)
+          console.log(data)
           navigate('/login')
 
       })

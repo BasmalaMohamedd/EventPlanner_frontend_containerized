@@ -33,6 +33,8 @@ function App() {
     password: "12345678",
   });
 
+  const [organizedEventsFlag, setOrganizedEventsFlag] = useState(0);
+
   
   function getToken() {
     return localStorage.getItem("token");
@@ -88,6 +90,7 @@ function App() {
       };
 
       setEvents((prev) => [...prev, normalizedEvent]);
+      setOrganizedEventsFlag((prev)=>prev + 1);
       setCreateModalOpen(false);
       return true; // Success
     } catch (error) {
@@ -297,7 +300,7 @@ function App() {
     }
 
     loadOrganizedEvents();
-  }, [isLoggedin]);
+  }, [organizedEventsFlag]);
 
   return (
     <BrowserRouter>
