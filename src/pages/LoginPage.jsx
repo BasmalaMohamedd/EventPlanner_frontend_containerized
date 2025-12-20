@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 
-const LoginPage = ({testUser, setCurrentUser, setLoggedin}) => {
+const LoginPage = ({ setCurrentUser, setLoggedin}) => {
 
   const navigate = useNavigate();
 
@@ -45,25 +45,6 @@ const LoginPage = ({testUser, setCurrentUser, setLoggedin}) => {
         console.error('Error creating item:', error);
     });
     
-    if(testUser.email == email && testUser.password == password)  
-    {
-      setCurrentUser({
-        first_name:testUser.first_name,
-        last_name:testUser.last_name,
-        username:testUser.username,
-        email:testUser.email
-        
-      })
-        setLoginMessage("login successfully")
-        setLoggedin(true);
-        navigate('/')
-        localStorage.setItem('token', "hello world");
-
-
-    }
-    else{
-      setLoginMessage("wrong email or password")
-    }
     console.log(email);
     console.log(password);
     setLoginMessage("check console")

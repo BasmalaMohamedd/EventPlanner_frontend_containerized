@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
@@ -14,6 +14,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const API_BASE_URL = "http://localhost:8000";
 
 function App() {
+
   const [isLoggedin, setLoggedin] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     first_name: "",
@@ -24,89 +25,11 @@ function App() {
 
   const [events, setEvents] = useState([]);
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
-
-  const [testUser] = useState({
-    first_name: "basmala",
-    last_name: "mohamed",
-    username: "basmalamohamed",
-    email: "basmalamohamed934@gmail.com",
-    password: "12345678",
-  });
-
   const [organizedEventsFlag, setOrganizedEventsFlag] = useState(0);
 
   
   function getToken() {
     return localStorage.getItem("token");
-  }
-
-  
-  async function handleAddEvent(eventData) {
-    console.log(" eventData in handleAddEvent:", eventData);
-
-    const token = getToken();
-    if (!token) {
-      alert("You must be logged in to create events.");
-      console.warn("No token found in localStorage");
-      return false;
-    }
-
-    try {
-      const url = `${API_BASE_URL}/events/create`;
-      console.log(" Sending POST to:", url);
-
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title: eventData.title,
-          date: eventData.date,
-          time: eventData.time,
-          location: eventData.location,
-          description: eventData.description,
-        }),
-      });
-
-      console.log(" create event status:", response.status);
-
-      if (!response.ok) {
-        const text = await response.text().catch(() => "");
-        console.error(" Failed to create event. Body:", text);
-        alert(`Failed to create event (status ${response.status})`);
-        return false;
-      }
-
-      const data = await response.json();
-      console.log(" create event JSON:", data);
-
-      const backendEvent = data.event || data;
-
-      const normalizedEvent = {
-        ...backendEvent,
-        id: backendEvent.id || backendEvent._id?.$oid || backendEvent._id,
-      };
-
-      setEvents((prev) => [...prev, normalizedEvent]);
-      setOrganizedEventsFlag((prev)=>prev + 1);
-      setCreateModalOpen(false);
-      return true; // Success
-    } catch (error) {
-      console.error(" Error creating event (network / JS error):", error);
-      
-      // More specific error messages
-      let errorMessage = "Error creating event: ";
-      if (error.message === "Failed to fetch") {
-        errorMessage += `Cannot connect to backend server at ${API_BASE_URL}. Please ensure the backend is running and accessible.`;
-      } else {
-        errorMessage += error.message;
-      }
-      
-      alert(errorMessage);
-      return false; 
-    }
   }
 
   
@@ -212,26 +135,11 @@ function App() {
       })
 
         setLoggedin(true);
-        localStorage.setItem('token', data.token);
-        navigate('/')
 
     })
     .catch(error => {
         console.error('Error creating item:', error);
     });
-    
-    // if(token == "hello world")  
-    // {
-    //   setCurrentUser({
-    //     first_name:testUser.first_name,
-    //     last_name:testUser.last_name,
-    //     username:testUser.username,
-    //     email:testUser.email
-        
-    //   })
-    //   setLoggedin(true);
-        
-
 
     }
     
@@ -255,99 +163,6 @@ function App() {
 
   // ✅ Load Organized Events → GET /events/organized_events
 
-  useEffect(() => {
-    async function loadOrganizedEvents() {
-      if (!isLoggedin) return;
-
-      const token = getToken();
-      if (!token) {
-        console.warn("No token when trying to load events");
-        return;
-      }
-
-      try {
-        const url = `${API_BASE_URL}/events/organized_events`;
-        console.log("🔗 GET organized events:", url);
-
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        console.log("📥 organized events status:", response.status);
-
-        if (!response.ok) {
-          const text = await response.text().catch(() => "");
-          console.error("❌ Failed to load events. Body:", text);
-          setEvents([]);
-          return;
-        }
-
-        const backendEvents = await response.json();
-        console.log(" organized events JSON:", backendEvents);
-
-        const normalized = backendEvents.map((ev) => ({
-          ...ev,
-          id: ev.id || ev._id?.$oid || ev._id,
-        }));
-
-        setEvents(normalized);
-      } catch (error) {
-        console.error(" Error loading events:", error);
-        setEvents([]);
-      }
-    }
-    loadOrganizedEvents();
-  }, [organizedEventsFlag]);
-  useEffect(() => {
-    async function loadOrganizedEvents() {
-      if (!isLoggedin) return;
-
-      const token = getToken();
-      if (!token) {
-        console.warn("No token when trying to load events");
-        return;
-      }
-
-      try {
-        const url = `${API_BASE_URL}/events/organized_events`;
-        console.log("🔗 GET organized events:", url);
-
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        console.log("📥 organized events status:", response.status);
-
-        if (!response.ok) {
-          const text = await response.text().catch(() => "");
-          console.error("❌ Failed to load events. Body:", text);
-          setEvents([]);
-          return;
-        }
-
-        const backendEvents = await response.json();
-        console.log(" organized events JSON:", backendEvents);
-
-        const normalized = backendEvents.map((ev) => ({
-          ...ev,
-          id: ev.id || ev._id?.$oid || ev._id,
-        }));
-
-        setEvents(normalized);
-      } catch (error) {
-        console.error(" Error loading events:", error);
-        setEvents([]);
-      }
-    }
-    loadOrganizedEvents();
-  }, []);
-
   return (
     <BrowserRouter>
       <Navbar
@@ -368,6 +183,7 @@ function App() {
                 onDeleteEvent={handleDeleteEvent}
                 onInviteEvent={handleInvite}
                 token={getToken()}
+                organizedEventsFlag = {organizedEventsFlag}
               />
             ) : (
               <LandingPage />
@@ -381,7 +197,6 @@ function App() {
           path="/login"
           element={
             <LoginPage
-              testUser={testUser}
               setCurrentUser={setCurrentUser}
               setLoggedin={setLoggedin}
             />
@@ -391,7 +206,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>
 
-      {isLoggedin && <EventForm onSubmit={handleAddEvent} />}
+      {isLoggedin && <EventForm token={getToken()} setFlag={setOrganizedEventsFlag}/>}
     </BrowserRouter>
   );
 }

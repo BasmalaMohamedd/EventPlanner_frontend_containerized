@@ -1,45 +1,54 @@
 import { useState } from 'react';
 
-const initialForm = {
-  title: '',
-  date: '',
-  time: '',
-  location: '',
-  description: ''
-};
-
-const EventForm = ({ onSubmit }) => {
-  const [formValues, setFormValues] = useState(initialForm);
+const EventForm = ({ setFlag, token }) => {
+  
   const [error, setError] = useState('');
 
-  function handleChange(event){
-    const {name, value} = event.target;
-    setFormValues((prev)=>({
-      ...prev,
-      [name]: value
-    }));
-  }
+  function addEvent(formData)
+  {
+    const title = formData.get("title");
+    const date = formData.get("date");
+    const time = formData.get("time");
+    const location = formData.get("location");
+    const description = formData.get("description");
+    console.log(token);
+    setTimeout(()=>{setFlag((prev)=> prev + 1);}, 2000)
 
-  function handleSubmit(event){
-    event.preventDefault();
+    fetch('http://localhost:8000/events/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+
+        },
+        body: JSON.stringify({
+          title: title,
+          date: date,
+          time: time,
+          location: location,
+          description: description})
+
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return response.json();
+    })
+    .then(data => {
+      
+      console.log(data);
+      //backend throws internal server error while data base works fine
+      setFlag((prev)=> prev + 1);
+      
+    })
+    .catch(error => {
+        console.error('Error getting events:', error);
+    });
 
     
-    const emptyField = Object.entries(formValues).find(([, value])=>!value.trim());
-    if(emptyField){
-      setError(`Please fill the ${emptyField[0]} field before saving.`);
-      return;
-    }
-
     
-    onSubmit(formValues);
-    setFormValues(initialForm);
-    setError('');
-
-    
-    const cancelBtn = document.getElementById('eventModalCancelBtn');
-    if (cancelBtn) {
-      cancelBtn.click();
-    }
   }
 
   return (
@@ -65,7 +74,7 @@ const EventForm = ({ onSubmit }) => {
             ></button>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form action={addEvent}>
             <div className="modal-body">
               <div className="mb-3">
                 <label className="form-label">Title</label>
@@ -73,8 +82,6 @@ const EventForm = ({ onSubmit }) => {
                   type="text"
                   className="form-control"
                   name="title"
-                  value={formValues.title}
-                  onChange={handleChange}
                   placeholder="Ex: Team Workshop"
                 />
               </div>
@@ -86,8 +93,6 @@ const EventForm = ({ onSubmit }) => {
                     type="date"
                     className="form-control"
                     name="date"
-                    value={formValues.date}
-                    onChange={handleChange}
                   />
                 </div>
                 <div className="col-md-6">
@@ -96,8 +101,6 @@ const EventForm = ({ onSubmit }) => {
                     type="time"
                     className="form-control"
                     name="time"
-                    value={formValues.time}
-                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -108,8 +111,6 @@ const EventForm = ({ onSubmit }) => {
                   type="text"
                   className="form-control"
                   name="location"
-                  value={formValues.location}
-                  onChange={handleChange}
                   placeholder="Ex: Downtown Hall"
                 />
               </div>
@@ -120,8 +121,6 @@ const EventForm = ({ onSubmit }) => {
                   className="form-control"
                   name="description"
                   rows="3"
-                  value={formValues.description}
-                  onChange={handleChange}
                   placeholder="Add agenda or notes"
                 ></textarea>
               </div>

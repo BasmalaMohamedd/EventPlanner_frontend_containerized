@@ -7,11 +7,11 @@ import Search from "../components/Search";
 
 const Home = ({
   userName,
-  events = [],
   isLoggedin,
   onDeleteEvent,
   onInviteEvent,
   token,
+  OrganizedEventsFlag
 }) => {
   const [invitationsFlag, setInvitationsFlag] = useState(0);
 
@@ -42,9 +42,10 @@ const Home = ({
             aria-labelledby="myEvents-tab"
           >
             <OrganizedEvents
-              events={events}
               onDeleteEvent={onDeleteEvent}
               onInviteEvent={onInviteEvent}
+              token ={token}
+              flag={OrganizedEventsFlag}
             />
           </div>
 
