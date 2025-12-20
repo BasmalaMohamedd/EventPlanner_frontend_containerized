@@ -254,6 +254,7 @@ function App() {
   }, [isLoggedin]);
 
   // ✅ Load Organized Events → GET /events/organized_events
+
   useEffect(() => {
     async function loadOrganizedEvents() {
       if (!isLoggedin) return;
@@ -298,9 +299,54 @@ function App() {
         setEvents([]);
       }
     }
-
     loadOrganizedEvents();
   }, [organizedEventsFlag]);
+  useEffect(() => {
+    async function loadOrganizedEvents() {
+      if (!isLoggedin) return;
+
+      const token = getToken();
+      if (!token) {
+        console.warn("No token when trying to load events");
+        return;
+      }
+
+      try {
+        const url = `${API_BASE_URL}/events/organized_events`;
+        console.log("🔗 GET organized events:", url);
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log("📥 organized events status:", response.status);
+
+        if (!response.ok) {
+          const text = await response.text().catch(() => "");
+          console.error("❌ Failed to load events. Body:", text);
+          setEvents([]);
+          return;
+        }
+
+        const backendEvents = await response.json();
+        console.log(" organized events JSON:", backendEvents);
+
+        const normalized = backendEvents.map((ev) => ({
+          ...ev,
+          id: ev.id || ev._id?.$oid || ev._id,
+        }));
+
+        setEvents(normalized);
+      } catch (error) {
+        console.error(" Error loading events:", error);
+        setEvents([]);
+      }
+    }
+    loadOrganizedEvents();
+  }, []);
 
   return (
     <BrowserRouter>
