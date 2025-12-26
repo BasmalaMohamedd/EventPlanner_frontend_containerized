@@ -19,7 +19,7 @@ const SignupPage = () => {
     }
     else if(password == confirmPassword)
     {
-      fetch('https://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/users/register', {
+      fetch('http://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/users/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
