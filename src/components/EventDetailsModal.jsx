@@ -130,7 +130,7 @@ const EventDetailsModal = ({ event, onEdit, onDelete, onInvite, token }) => {
                 </p>
                 <p className="mt-3">{event.description}</p>
                 <div className="dropdown">
-                  <button onClick={getAttendees} class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button onClick={getAttendees} className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Your attendees
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
