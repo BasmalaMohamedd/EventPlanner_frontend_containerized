@@ -11,7 +11,7 @@ const LoginPage = ({ setCurrentUser, setLoggedin}) => {
   {
     const email = formData.get("email");
     const password = formData.get("password"); 
-    fetch('http://localhost:8000/users/login', {
+    fetch('https://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
