@@ -4,6 +4,40 @@ const EventDetailsModal = ({ event, onEdit, onDelete, onInvite }) => {
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteMessage, setInviteMessage] = useState("");
 
+  const [attendess, setAttendees] = useState([]);
+
+  function getAttendees()
+  {
+    fetch('http://localhost:8000/responses/attendees', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              "Authorization": `Bearer ${token}`
+  
+          },
+          body:JSON.stringify({
+            event_id:event.id
+          })
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setAttendees(data)
+  
+        
+      })
+      .catch(error => {
+          console.error('Error getting events:', error);
+      });
+  }
+
+
+
   const handleEdit = () => {
     if (onEdit && event) {
       onEdit(event);
@@ -39,14 +73,14 @@ const EventDetailsModal = ({ event, onEdit, onDelete, onInvite }) => {
       });
 
       if (success) {
-        setInviteMessage("✅ Invitation sent successfully!");
+        setInviteMessage("Invitation sent successfully!");
         setInviteEmail("");
         // Clear success message after 3 seconds
         setTimeout(() => {
           setInviteMessage("");
         }, 3000);
       } else {
-        setInviteMessage("❌ Failed to send invitation. Please try again.");
+        setInviteMessage("Failed to send invitation. Please try again.");
       }
     }
   };
@@ -95,8 +129,22 @@ const EventDetailsModal = ({ event, onEdit, onDelete, onInvite }) => {
                   {event.time}
                 </p>
                 <p className="mt-3">{event.description}</p>
+                <div className="dropdown">
+                  <button onClick={getAttendees} class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Your attendees
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {
+                      attendess.map((attendee)=>{
+                          <li className="d-flex justify-content-between full-width"><i class="bi bi-person mx-2"></i><div className="mx-2">{attendee.email}</div><div className="mx-2">{attendee.status}</div></li>
 
+                      })
+                    }
+                    
+                  </ul>
+                </div>
                 <hr className="my-3" />
+                
 
                 {/* 🔹 Invite section */}
                 <h6 className="mb-2">Invite someone</h6>
@@ -127,6 +175,7 @@ const EventDetailsModal = ({ event, onEdit, onDelete, onInvite }) => {
           </div>
 
           <div className="modal-footer">
+
             {/* Delete */}
             <button
               type="button"

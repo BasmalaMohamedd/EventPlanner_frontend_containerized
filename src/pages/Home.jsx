@@ -46,6 +46,7 @@ const Home = ({
               onInviteEvent={onInviteEvent}
               token ={token}
               flag={organizedEventsFlag}
+              userFlag={isLoggedin}
             />
           </div>
 

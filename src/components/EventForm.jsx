@@ -7,6 +7,7 @@ const EventForm = ({ setFlag, token }) => {
   function addEvent(formData)
   {
 
+    // setTimeout(()=>{setFlag((prev)=> prev + 1);}, 2000)
     const title = formData.get("title");
     const date = formData.get("date");
     const time = formData.get("time");
@@ -40,7 +41,7 @@ const EventForm = ({ setFlag, token }) => {
       
       console.log(data);
       //backend throws internal server error while data base works fine
-      setFlag((prev)=> prev + 1);
+      // setFlag((prev)=> prev + 1);
       
     })
     .catch(error => {

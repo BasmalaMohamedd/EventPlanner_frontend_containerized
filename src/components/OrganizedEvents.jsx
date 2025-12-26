@@ -4,12 +4,22 @@ import EventDetailsModal from "./EventDetailsModal";
 
 const OrganizedEvents = ({
   flag,
+  userFlag,
   token,
   onEditEvent,
   onDeleteEvent,
   onInviteEvent,
 }) => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([
+    {
+       id:0, 
+       title:"basmala's wedding", 
+       location:"cario", 
+       date: "11/11/2026", 
+       time:"7:00pm", 
+       description: "welocome to our wedding"
+    }
+  ]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   function getEvents(){
     fetch('http://localhost:8000/events/organized_events', {
@@ -17,7 +27,6 @@ const OrganizedEvents = ({
         headers: {
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`
-
         },
     })
     .then(response => {
@@ -37,7 +46,9 @@ const OrganizedEvents = ({
     });
   }
   useEffect(getEvents, [])
-  useEffect(getEvents, [flag])
+  useEffect(()=>{
+    getEvents()
+  }, [flag])
 
   function handleCardClick(eventObj) {
     setSelectedEvent(eventObj);
