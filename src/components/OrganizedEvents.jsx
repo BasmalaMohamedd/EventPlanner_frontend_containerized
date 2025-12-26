@@ -10,16 +10,7 @@ const OrganizedEvents = ({
   onDeleteEvent,
   onInviteEvent,
 }) => {
-  const [events, setEvents] = useState([
-    {
-       id:0, 
-       title:"basmala's wedding", 
-       location:"cario", 
-       date: "11/11/2026", 
-       time:"7:00pm", 
-       description: "welocome to our wedding"
-    }
-  ]);
+  const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   function getEvents(){
     fetch('http://localhost:8000/events/organized_events', {
@@ -36,7 +27,6 @@ const OrganizedEvents = ({
         return response.json();
     })
     .then(data => {
-      console.log(data);
       setEvents(data);
 
       

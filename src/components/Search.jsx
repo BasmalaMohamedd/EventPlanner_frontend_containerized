@@ -28,7 +28,6 @@ fetch('http://localhost:8000/search/searchEvent', {
         return response.json();
     })
     .then(data => {
-      console.log(data);
       setSearchResults(data);
       
       

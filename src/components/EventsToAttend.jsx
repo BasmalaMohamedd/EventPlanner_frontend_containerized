@@ -20,7 +20,6 @@ const EventsToAttend = ({token,flag}) => {
           return response.json();
       })
       .then(data => {
-        console.log(data);
         setEvents(data);
   
         

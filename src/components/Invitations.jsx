@@ -20,7 +20,6 @@ const Invitations = ({token, flag, setFlag}) => {
         return response.json();
     })
     .then(data => {
-      console.log(data);
       setEvents(data);
 
       

@@ -4,7 +4,6 @@ import EventCard from './EventCard'
 const Invitation = ({event, token, setFlag}) => {
     function recordRespose(formData){
         const status = formData.get("status");
-        console.log("id: "+ event.id + ", status: " + status);
         fetch('http://localhost:8000/responses/status', {
         method: 'PUT',
         headers: {
@@ -22,12 +21,11 @@ const Invitation = ({event, token, setFlag}) => {
         return response.json();
     })
     .then(data => {
-      console.log(data);
       setFlag((prev)=> prev + 1);
       
     })
     .catch(error => {
-        console.error('Error getting events:', error);
+        console.error('Error updating response:', error);
     });
         
 

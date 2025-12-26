@@ -19,11 +19,6 @@ const SignupPage = () => {
     }
     else if(password == confirmPassword)
     {
-      console.log(fName);
-      console.log(lName);
-      console.log(username);
-      console.log(email);
-      console.log(password);
       fetch('http://localhost:8000/users/register', {
         method: 'POST',
         headers: {

@@ -25,8 +25,6 @@ const LoginPage = ({ setCurrentUser, setLoggedin}) => {
         return response.json();
     })
     .then(data => {
-      console.log(data);
-      
         setCurrentUser({
         first_name:data.user.first_name,
         last_name:data.user.last_name,

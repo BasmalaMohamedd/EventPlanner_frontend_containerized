@@ -13,7 +13,6 @@ const EventForm = ({ setFlag, token }) => {
     const time = formData.get("time");
     const location = formData.get("location");
     const description = formData.get("description");
-    console.log(token);
 
     fetch('http://localhost:8000/events/create', {
         method: 'POST',
@@ -38,8 +37,8 @@ const EventForm = ({ setFlag, token }) => {
         return response.json();
     })
     .then(data => {
-      
-      console.log(data);
+
+      setErrorMsg("event added successfully");
       //backend throws internal server error while data base works fine
       // setFlag((prev)=> prev + 1);
       

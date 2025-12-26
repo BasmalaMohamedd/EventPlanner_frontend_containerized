@@ -26,7 +26,6 @@ const EventDetailsModal = ({ event, onEdit, onDelete, onInvite, token }) => {
           return response.json();
       })
       .then(data => {
-        console.log(data);
         setAttendees(data)
   
         
