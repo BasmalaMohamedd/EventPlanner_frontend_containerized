@@ -136,7 +136,7 @@ const EventDetailsModal = ({ event, onEdit, onDelete, onInvite, token }) => {
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     {
                       attendess.map((attendee)=>{
-                          <li className="d-flex justify-content-between full-width"><i class="bi bi-person mx-2"></i><div className="mx-2">{attendee.username}</div><div className="mx-2">{attendee.status}</div></li>
+                          return <li className="d-flex justify-content-between full-width"><i className="bi bi-person mx-2"></i><div className="mx-2">{attendee.username}</div><div className="mx-2">{attendee.status}</div></li>
 
                       })
                     }
