@@ -5,7 +5,7 @@ const EventsToAttend = ({token,flag}) => {
   const [events, setEvents] = useState([])
   
     function getEvents(){
-        fetch('https://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/events/events_attend', {
+        fetch('http://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/events/events_attend', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',

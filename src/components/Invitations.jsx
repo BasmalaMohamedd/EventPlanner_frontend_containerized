@@ -5,7 +5,7 @@ const Invitations = ({token, flag, setFlag}) => {
   const [events, setEvents] = useState([])
 
   function getInvitations(){
-      fetch('https://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/events/invited_events', {
+      fetch('http://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/events/invited_events', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
