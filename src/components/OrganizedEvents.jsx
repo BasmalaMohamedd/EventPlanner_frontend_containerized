@@ -81,6 +81,7 @@ const OrganizedEvents = ({
         onEdit={onEditEvent}
         onDelete={onDeleteEvent}
         onInvite={onInviteEvent}
+        token={token}
       />
     </>
   );

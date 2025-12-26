@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EventDetailsModal = ({ event, onEdit, onDelete, onInvite }) => {
+const EventDetailsModal = ({ event, onEdit, onDelete, onInvite, token }) => {
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteMessage, setInviteMessage] = useState("");
 
