@@ -1,17 +1,25 @@
-# Stage 1: Build the Vite app
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+FROM node:18
 
-# Stage 2: Serve the static files with Nginx
-FROM nginx:stable-alpine AS production
-# OpenShift runs containers as arbitrary non-root user, so we need to adjust permissions
-RUN chmod -R 755 /usr/share/nginx/html && chown -R nginx:nginx /usr/share/nginx/html
-COPY --from=build /app/dist /usr/share/nginx/html
-# OpenShift expects the app to listen on port 8080 by default
-ENV PORT=8080
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+ # Set the working directory inside the container
+ WORKDIR /app
+
+ # Copy package.json and package-lock.json to install dependencies
+ COPY package*.json ./
+
+ # Install dependencies
+ RUN npm install
+
+ # Copy the rest of the application code
+ COPY . .
+
+ # Build the Vite app for production
+ RUN npm run build
+
+ # Install serve globally to serve the production build
+ RUN npm install -g serve
+
+ # Expose port 8080 (OpenShift expects this port)
+ EXPOSE 8080
+
+ # Start the app using serve
+ CMD ["serve", "-s", "dist", "-p", "8080"]
