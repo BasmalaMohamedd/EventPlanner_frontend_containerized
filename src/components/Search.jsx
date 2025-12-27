@@ -12,7 +12,7 @@ const Search = ({token}) => {
   ...(date && { date }),
   ...(time && { time })
 }
-fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/search/searchEvent', {
+fetch('http://backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/search/searchEvent', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

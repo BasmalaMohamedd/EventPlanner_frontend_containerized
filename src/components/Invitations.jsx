@@ -5,7 +5,7 @@ const Invitations = ({token, flag, setFlag}) => {
   const [events, setEvents] = useState([])
 
   function getInvitations(){
-      fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/events/invited_events', {
+      fetch('http://backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/events/invited_events', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

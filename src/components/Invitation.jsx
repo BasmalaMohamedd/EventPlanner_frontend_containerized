@@ -4,7 +4,7 @@ import EventCard from './EventCard'
 const Invitation = ({event, token, setFlag}) => {
     function recordRespose(formData){
         const status = formData.get("status");
-        fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/responses/status', {
+        fetch('http://backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/responses/status', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

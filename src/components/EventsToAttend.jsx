@@ -5,7 +5,7 @@ const EventsToAttend = ({token,flag}) => {
   const [events, setEvents] = useState([])
   
     function getEvents(){
-        fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/events/events_attend', {
+        fetch('http://backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/events/events_attend', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',

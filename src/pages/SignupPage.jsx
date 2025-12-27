@@ -19,7 +19,7 @@ const SignupPage = () => {
     }
     else if(password == confirmPassword)
     {
-      fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/users/register', {
+      fetch('http://backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/users/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
