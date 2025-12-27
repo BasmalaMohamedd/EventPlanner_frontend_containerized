@@ -8,7 +8,7 @@ const EventDetailsModal = ({ event, onEdit, onDelete, onInvite, token }) => {
 
   function getAttendees()
   {
-    fetch('http://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/responses/attendees', {
+    fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/responses/attendees', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

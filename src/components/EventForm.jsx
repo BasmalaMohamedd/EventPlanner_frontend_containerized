@@ -14,7 +14,7 @@ const EventForm = ({ setFlag, token }) => {
     const location = formData.get("location");
     const description = formData.get("description");
 
-    fetch('http://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/events/create', {
+    fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/events/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

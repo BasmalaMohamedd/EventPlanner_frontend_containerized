@@ -13,7 +13,7 @@ const OrganizedEvents = ({
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   function getEvents(){
-    fetch('http://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/events/organized_events', {
+    fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/events/organized_events', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

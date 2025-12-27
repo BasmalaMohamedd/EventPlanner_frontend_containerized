@@ -1,16 +1,27 @@
-# React + Vite
+# OpenShift Clients
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The OpenShift client `oc.exe` simplifies working with Kubernetes and OpenShift
+clusters, offering a number of advantages over `kubectl.exe` such as easy login,
+kube config file management, and access to developer tools.
 
-Currently, two official plugins are available:
+To learn more about OpenShift, visit [docs.openshift.com](https://docs.openshift.com)
+and select the version of OpenShift you are using.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installing the tools
 
-## React Compiler
+After extracting this archive, move the `oc.exe` binary	to a location on your
+PATH. Then run:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+    oc login [API_URL]
 
-## Expanding the ESLint configuration
+to start a session against an OpenShift cluster. After login, run `oc.exe` and
+`oc.exe help` to learn more about how to get started with OpenShift.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+If you would like to use `kubectl.exe` instead, copy the `oc.exe` file
+and rename it to `kubectl.exe`. The interface will follow the conventions of that
+CLI.
+
+## License
+
+OpenShift is licensed under the Apache Public License 2.0. The source code for this
+program is [located on github](https://github.com/openshift/origin).

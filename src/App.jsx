@@ -11,7 +11,7 @@ import LandingPage from "./pages/LandingPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-const API_BASE_URL = "http://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com";
+const API_BASE_URL = "backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com";
 
 function App() {
 
@@ -109,7 +109,7 @@ function App() {
     const token = getToken();
     if(token)
     {
-      fetch('http://backend-route-crt-20226011-dev.apps.rm3.7wse.p1.openshiftapps.com/users/login/token', {
+      fetch('backendd-basmala-student-dev.apps.rm3.7wse.p1.openshiftapps.com/users/login/token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
